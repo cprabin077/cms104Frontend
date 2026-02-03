@@ -8,29 +8,22 @@ const CreateBlog = () => {
 
   const navigate = useNavigate()
 
-  const [title, setTitle] = useState("")
-  const [subTitle, setSubTitle] = useState("")
-  const [description, setDescription] = useState("")
-
-  const createBlog = async (e) => {
-    e.preventDefault()
-    const data = {
-      title: title, // backend lay leko : stateName
-      subTitle: subTitle,
-      description: description
-    }
-    //send above states data to api
-    const respose = await axios.post("http://localhost:2000/blogs", data)
-    if(respose.status==201){
-      alert(respose.data.message)
-      navigate("/")
-    }else{
-      alert("Something went wrong")
-    }
+  //Second approach
+  const createBlog = async (e) =>{
+      e.preventDefault()
+      console.log(e.currentTarget,"currentTarget")
+      const formData = new FormData(e.currentTarget)
+     
+      return
+    // send above status data to api
+      const response = await axios.post("http://localhost:2000/blogs")
+      if(response.status == 201){
+        alert("resposne.data.message")
+        navigate("/")
+      }else{
+        alert("Something went wrong")
+      }
   }
-
-
-  //console.log(title,subTitle,description)
 
   return (
     <div>
@@ -41,20 +34,18 @@ const CreateBlog = () => {
         <form onSubmit={createBlog}>
           <div className="form-group">
             <label htmlFor="title">Title</label>
-            <input type="text" id="title" placeholder="Enter title" onChange={
-              (e) => setTitle(e.target.value)
-            } />
+            <input type="text" id="title" name = "title" placeholder="Enter title" />
           </div>
 
           <div className="form-group">
             <label htmlFor="subtitle">Subtitle</label>
-            <input type="text" id="subtitle" placeholder="Enter subtitle" onChange={
-              (e) => setSubTitle(e.target.value)} />
+            <input type="text" id="subTitle" name="subTitle" placeholder="Enter subtitle"  />
           </div>
 
           <div className="form-group">
             <label htmlFor="description">Description</label>
-            <textarea id="description" placeholder="Enter description" onChange={(e) => setDescription(e.target.value)}></textarea>
+            <textarea id="description" name="description" placeholder="Enter description"
+            ></textarea>
           </div>
 
           <button type="submit">Submit</button>
