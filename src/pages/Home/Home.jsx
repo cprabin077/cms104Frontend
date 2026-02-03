@@ -30,7 +30,9 @@ const Home = () => {
 
     return (
         <div>
-            <Navbar />
+            <Navbar/>
+            <br/>
+            <br/>
             <div className="card" style={{ width: '18rem' }}>
                 {blogs.map((blog) => {
                     return (
