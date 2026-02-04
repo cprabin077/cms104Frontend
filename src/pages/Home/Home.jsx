@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../component/Navbar/Navbar'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const [blogs, setBlogs] = useState([]);
@@ -10,12 +11,12 @@ const Home = () => {
     const fetchBlogs = async () => {
         try {
             const response = await axios.get('http://localhost:2000/blogs')
-            if(response.status==200){
+            if (response.status == 200) {
                 setBlogs(response.data.blogs)
-            }else{
+            } else {
                 alert("Something wwent wrong")
             }
-            
+
         } catch (error) {
             alert("Something went wrong")
         }
@@ -29,10 +30,8 @@ const Home = () => {
     //console.log(blogs, "Blogs")
 
     return (
-        <div>
-            <Navbar/>
-            <br/>
-            <br/>
+        <>
+            <Navbar />
             <div className="card" style={{ width: '18rem' }}>
                 {blogs.map((blog) => {
                     return (
@@ -41,12 +40,13 @@ const Home = () => {
                             <h5 className="card-title">{blog.subTitle}</h5>
 
                             <p className="card-text">{blog.description}</p>
-                            <a href="#" className="btn btn-primary">Go somewhere</a>
+                            <Link to={`/singleBlog/${blog._id}`}>See More</Link>
                         </div>
                     )
                 })}
             </div>
-        </div>
+        </>
+
     )
 }
 
